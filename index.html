@@ -1,419 +1,112 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10111a">
-<title>EarnNova247 - User Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BG Remover AI</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root {
-  --bg:#10111a;
-  --panel:#191b28;
-  --panel2:#202337;
-  --text:#f6f7ff;
-  --muted:#a3a8bd;
-  --accent:#8b6cff;
-  --green:#3cdda0;
-  --border:#30334a;
-}
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:system-ui,-apple-system,sans-serif;
-  padding-bottom:90px
+font-family:Arial,sans-serif;color:white;min-height:100vh;
+padding:24px 16px;
+background:radial-gradient(ellipse at top left,#512da8,transparent 50%),
+radial-gradient(ellipse at bottom right,#075985,transparent 50%),#100c25
 }
-button{font:inherit;cursor:pointer}
-.top{
-  padding:22px 18px 18px;
-  background:linear-gradient(135deg,#29204d,#17182a 70%);
-  border-bottom:1px solid var(--border)
-}
-.toprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.brand{font-weight:850;font-size:20px;letter-spacing:-.5px}
-.brand span{color:#a994ff}
-.pill{
-  background:#34304f;border:1px solid #514578;
-  padding:7px 11px;border-radius:30px;font-size:12px
-}
-.container{max-width:720px;margin:auto;padding:18px}
-.page{display:none}
-.page.active{display:block}
-h2{font-size:22px;margin:4px 0 6px}
-p{color:var(--muted);font-size:14px;line-height:1.6}
-.hero{
-  background:linear-gradient(135deg,#7253e7,#4935a6);
-  border-radius:22px;padding:22px;margin-bottom:16px;
-  box-shadow:0 12px 35px #0002
-}
-.eyebrow{font-size:12px;color:#e4dcff;font-weight:700}
-.balance{font-size:38px;font-weight:850;margin:8px 0}
-.balance small{font-size:15px;font-weight:600}
-.herofoot{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.btn{
-  border:0;border-radius:12px;padding:12px 15px;
-  background:var(--accent);color:white;font-weight:750
-}
-.btn.light{background:#fff;color:#48338d}
-.btn.green{background:var(--green);color:#10251d}
-.btn.secondary{background:var(--panel2);border:1px solid var(--border)}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.sectionhead{
-  display:flex;align-items:center;justify-content:space-between;
-  margin:22px 0 12px
-}
-.sectionhead h3{margin:0;font-size:17px}
-.link{background:none;border:0;color:#b4a2ff;font-weight:700}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card{
-  background:var(--panel);border:1px solid var(--border);
-  padding:16px;border-radius:17px;min-width:0
-}
-.stat-icon{font-size:23px}
-.stat-value{font-size:23px;font-weight:800;margin-top:10px}
-.stat-label{font-size:12px;color:var(--muted);margin-top:4px}
-.row{display:flex;align-items:center;gap:12px}
-.row.between{justify-content:space-between}
-.iconbox{
-  width:46px;height:46px;flex-shrink:0;border-radius:14px;
-  background:#30294d;display:grid;place-items:center;font-size:22px
-}
-.item{margin-bottom:11px}
-.item .btn{padding:10px 13px;font-size:13px}
-.itemtitle{font-weight:750;font-size:14px}
-.small{font-size:12px;color:var(--muted);margin-top:5px}
-.tag{
-  display:inline-block;border-radius:8px;background:#263e39;
-  color:#83f2c6;font-size:11px;padding:5px 8px
-}
-.notice{
-  padding:12px 14px;background:#24213b;border:1px solid #49406e;
-  color:#d9d0ff;border-radius:12px;font-size:12px;line-height:1.6;
-  margin:14px 0
-}
-.progress{height:7px;background:#30334a;border-radius:9px;overflow:hidden;margin:12px 0}
-.progress div{height:100%;width:0;background:var(--green);transition:width .2s}
-.taskbtn{width:100%;margin-top:12px}
-.nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:10;
-  background:#171824f5;backdrop-filter:blur(16px);
-  border-top:1px solid var(--border);
-  display:flex;justify-content:center;padding:9px 4px max(9px,env(safe-area-inset-bottom))
-}
-.navinner{width:100%;max-width:720px;display:flex;justify-content:space-around;gap:3px}
-.nav button{
-  flex:1;background:none;border:0;color:var(--muted);
-  padding:8px 2px;border-radius:12px;font-size:10px
-}
-.nav button span{display:block;font-size:19px;margin-bottom:4px}
-.nav button.active{color:#c2b4ff;background:#2b2641}
-.empty{text-align:center;padding:26px 10px}
-.empty div{font-size:34px}
-.footer{text-align:center;font-size:11px;color:#747b95;margin:25px 0}
-.toast{
-  position:fixed;bottom:95px;left:50%;transform:translateX(-50%);
-  width:max-content;max-width:90%;background:#f5f5ff;color:#171824;
-  border-radius:12px;padding:12px 16px;font-size:13px;
-  box-shadow:0 6px 25px #0005;display:none;z-index:30
-}
-input{
-  width:100%;background:#11131f;border:1px solid var(--border);
-  color:white;border-radius:11px;padding:12px;margin:8px 0 14px
-}
-label{font-size:13px;color:var(--muted)}
-@media(min-width:560px){.container{padding:24px}.top{padding-left:24px;padding-right:24px}}
+.app{max-width:450px;margin:auto}
+.header{display:flex;align-items:center;gap:12px;margin-bottom:35px}
+.logo{padding:14px;border-radius:16px;background:linear-gradient(135deg,#a855f7,#3b82f6);font-size:24px}
+h2{font-size:19px}
+small{color:#b9b4d4}
+.hero{margin-bottom:25px}
+h1{font-size:36px;line-height:1.2}
+h1 span{color:#a78bfa}
+.hero p{color:#c1bbd9;line-height:1.7;margin-top:12px}
+.card{padding:18px;border:1px solid #ffffff25;border-radius:24px;background:#ffffff0c;backdrop-filter:blur(15px)}
+.upload{padding:35px 15px;text-align:center;border:2px dashed #8b5cf6;border-radius:18px;background:#8b5cf610;cursor:pointer}
+.upload .icon{font-size:42px;margin-bottom:15px}
+.upload p{margin-top:10px;color:#c4b5fd}
+input{display:none}
+#preview{display:none;margin-top:18px}
+#preview img{max-width:100%;max-height:300px;display:block;margin:auto;border-radius:12px}
+#filename{font-size:12px;color:#c4b5fd;margin-top:10px;overflow-wrap:anywhere}
+button,.download{display:block;width:100%;padding:16px;margin-top:18px;border:0;border-radius:14px;background:linear-gradient(100deg,#9333ea,#3b82f6);color:white;font-size:15px;font-weight:bold;text-align:center;text-decoration:none;cursor:pointer}
+button:disabled{opacity:.5}
+#status{margin-top:14px;color:#ddd6fe;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.feature{padding:17px;border-radius:18px;background:#ffffff0b;border:1px solid #ffffff15}
+.feature p{font-size:12px;color:#b9b4d4;line-height:1.6;margin-top:8px}
+footer{text-align:center;margin-top:28px;color:#9993b7;font-size:12px}
 </style>
 </head>
 <body>
-
-<header class="top">
-  <div class="toprow">
-    <div class="brand">EarnNova<span>247</span></div>
-    <div class="pill">👤 Guest Account</div>
-  </div>
+<main class="app">
+<header class="header">
+<div class="logo">✂️</div>
+<div><h2>BG Remover AI</h2><small>AI Background Studio</small></div>
 </header>
-
-<main class="container">
-
-  <section class="page active" id="home">
-    <h2>Welcome to EarnNova247 👋</h2>
-    <p>Your rewards dashboard. Explore tasks and rewards.</p>
-
-    <div class="hero">
-      <div class="eyebrow">YOUR COIN BALANCE · DEMO</div>
-      <div class="balance"><span id="balance">0</span> <small>🪙 Coins</small></div>
-      <div class="herofoot">
-        <span class="small" style="color:#e1d9ff">Build your rewards journey</span>
-        <button class="btn light" onclick="showPage('wallet')">My Wallet ↗</button>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <div class="stat-icon">📺</div>
-        <div class="stat-value">Watch & Earn</div>
-        <div class="stat-label">Explore available ads</div>
-        <button class="btn taskbtn" onclick="showPage('watch')">Explore Ads</button>
-      </div>
-      <div class="card">
-        <div class="stat-icon">🎯</div>
-        <div class="stat-value">Daily Tasks</div>
-        <div class="stat-label">Check daily activities</div>
-        <button class="btn secondary taskbtn" onclick="showPage('daily')">View Tasks</button>
-      </div>
-      <div class="card">
-        <div class="stat-icon">🏆</div>
-        <div class="stat-value">Leaderboard</div>
-        <div class="stat-label">See sample rankings</div>
-        <button class="btn secondary taskbtn" onclick="showPage('leaderboard')">View Ranks</button>
-      </div>
-      <div class="card">
-        <div class="stat-icon">💰</div>
-        <div class="stat-value">My Wallet</div>
-        <div class="stat-label">Check your demo balance</div>
-        <button class="btn secondary taskbtn" onclick="showPage('wallet')">Open Wallet</button>
-      </div>
-    </div>
-
-    <div class="notice">
-      ℹ️ Preview version: the displayed balance and activities are not connected to a real account or payment system.
-    </div>
-  </section>
-
-  <section class="page" id="watch">
-    <h2>📺 Watch & Earn</h2>
-    <p>Explore advertisements made available by the platform.</p>
-
-    <div class="notice">
-      Ads and rewards below are examples only. Real ads, verified eligibility and coin crediting require a secure backend integration.
-    </div>
-
-    <div class="card item">
-      <div class="row">
-        <div class="iconbox">▶️</div>
-        <div style="flex:1">
-          <div class="itemtitle">Advertisement Slot 01</div>
-          <div class="small">Reward: 10 coins · Demo offer</div>
-        </div>
-        <span class="tag">Sample</span>
-      </div>
-      <button class="btn taskbtn" onclick="demoMessage()">View Sample Offer</button>
-    </div>
-
-    <div class="card item">
-      <div class="row">
-        <div class="iconbox">🎬</div>
-        <div style="flex:1">
-          <div class="itemtitle">Advertisement Slot 02</div>
-          <div class="small">Reward: 10 coins · Demo offer</div>
-        </div>
-        <span class="tag">Sample</span>
-      </div>
-      <button class="btn taskbtn" onclick="demoMessage()">View Sample Offer</button>
-    </div>
-
-    <div class="card item">
-      <div class="row">
-        <div class="iconbox">🌐</div>
-        <div style="flex:1">
-          <div class="itemtitle">Advertisement Slot 03</div>
-          <div class="small">Reward: 10 coins · Demo offer</div>
-        </div>
-        <span class="tag">Sample</span>
-      </div>
-      <button class="btn taskbtn" onclick="demoMessage()">View Sample Offer</button>
-    </div>
-  </section>
-
-  <section class="page" id="daily">
-    <h2>🎯 Daily Tasks</h2>
-    <p>Daily task interface preview.</p>
-
-    <div class="card">
-      <div class="row between">
-        <div>
-          <div class="itemtitle">Daily Check-in</div>
-          <div class="small">Sample reward: 5 coins</div>
-        </div>
-        <div class="iconbox">📅</div>
-      </div>
-      <div class="progress"><div id="dailyProgress"></div></div>
-      <button class="btn green taskbtn" id="claimBtn" onclick="demoClaim()">Try Demo Check-in</button>
-      <p class="small">This demonstration is stored only in this browser and is not a verified reward.</p>
-    </div>
-
-    <div class="sectionhead"><h3>More Tasks</h3></div>
-    <div class="card item">
-      <div class="row">
-        <div class="iconbox">🛡️</div>
-        <div>
-          <div class="itemtitle">Complete your profile</div>
-          <div class="small">Available after account login is implemented.</div>
-        </div>
-      </div>
-    </div>
-    <div class="card item">
-      <div class="row">
-        <div class="iconbox">🤝</div>
-        <div>
-          <div class="itemtitle">Invite a friend</div>
-          <div class="small">Referral tracking will require backend verification.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" id="leaderboard">
-    <h2>🏆 Leaderboard</h2>
-    <p>Example rankings only. No real user data is connected.</p>
-
-    <div class="card item">
-      <div class="row">
-        <div class="iconbox">🥇</div>
-        <div style="flex:1">
-          <div class="itemtitle">Demo Player 01</div>
-          <div class="small">Sample rank #1</div>
-        </div>
-        <strong>12,500 🪙</strong>
-      </div>
-    </div>
-    <div class="card item">
-      <div class="row">
-        <div class="iconbox">🥈</div>
-        <div style="flex:1">
-          <div class="itemtitle">Demo Player 02</div>
-          <div class="small">Sample rank #2</div>
-        </div>
-        <strong>9,200 🪙</strong>
-      </div>
-    </div>
-    <div class="card item">
-      <div class="row">
-        <div class="iconbox">🥉</div>
-        <div style="flex:1">
-          <div class="itemtitle">Demo Player 03</div>
-          <div class="small">Sample rank #3</div>
-        </div>
-        <strong>6,800 🪙</strong>
-      </div>
-    </div>
-    <div class="notice">Your actual rank will appear after user accounts and verified coin balances are connected.</div>
-  </section>
-
-  <section class="page" id="wallet">
-    <h2>💰 My Wallet</h2>
-    <p>Wallet preview for your EarnNova247 account.</p>
-
-    <div class="hero">
-      <div class="eyebrow">DEMO AVAILABLE BALANCE</div>
-      <div class="balance"><span id="walletBalance">0</span> <small>🪙 Coins</small></div>
-      <div class="small" style="color:#e1d9ff">Cash conversion has not been configured.</div>
-    </div>
-
-    <div class="card">
-      <div class="row between">
-        <div>
-          <div class="itemtitle">Withdrawal</div>
-          <div class="small">Currently disabled</div>
-        </div>
-        <span class="pill">OFF</span>
-      </div>
-      <p>Withdrawal methods will appear only when the administrator enables them. Requests must be verified and approved by an administrator.</p>
-      <button class="btn secondary taskbtn" onclick="demoMessage()">Withdrawal Status</button>
-    </div>
-
-    <div class="sectionhead"><h3>Reward History</h3></div>
-    <div class="card empty">
-      <div>📜</div>
-      <p>No verified transactions yet.</p>
-    </div>
-  </section>
-
-  <section class="page" id="profile">
-    <h2>👤 Profile</h2>
-    <p>Account area preview.</p>
-    <div class="card">
-      <div class="iconbox">👤</div>
-      <h3>Guest User</h3>
-      <p>Login and registration are not yet connected.</p>
-      <button class="btn taskbtn" onclick="demoMessage()">Account Setup</button>
-    </div>
-    <div class="card" style="margin-top:12px">
-      <div class="itemtitle">Platform Features</div>
-      <p>Daily streaks, badges, referrals and secure reward history can be added after the backend is configured.</p>
-    </div>
-  </section>
-
-  <div class="footer">EarnNova247 · User Panel Preview</div>
+<section class="hero">
+<h1>Remove Background.<br><span>Keep the Magic.</span></h1>
+<p>Upload your photo and prepare a clean transparent image.</p>
+</section>
+<section class="card">
+<label class="upload" for="photo">
+<div class="icon">☁️</div>
+<strong>Upload Your Image</strong>
+<p>Tap here to browse photos</p>
+<small>JPG, PNG or WEBP · Max 10 MB</small>
+</label>
+<input id="photo" type="file" accept="image/jpeg,image/png,image/webp">
+<div id="preview">
+<img id="image" alt="Selected photo preview">
+<div id="filename"></div>
+</div>
+<button id="remove" disabled>✨ Remove Background</button>
+<div id="status" role="status">Choose an image to get started.</div>
+</section>
+<section class="features">
+<div class="feature"><div>⚡</div><strong>Easy to Use</strong><p>Simple image workflow.</p></div>
+<div class="feature"><div>🪄</div><strong>Transparent PNG</strong><p>Save your processed image.</p></div>
+<div class="feature"><div>📱</div><strong>Mobile Friendly</strong><p>Made for phone screens.</p></div>
+<div class="feature"><div>💜</div><strong>Glass Design</strong><p>Purple and blue interface.</p></div>
+</section>
+<footer>BG Remover AI · Made for creators</footer>
 </main>
-
-<nav class="nav">
-  <div class="navinner">
-    <button class="active" data-page="home" onclick="showPage('home')"><span>🏠</span>Home</button>
-    <button data-page="watch" onclick="showPage('watch')"><span>📺</span>Watch</button>
-    <button data-page="daily" onclick="showPage('daily')"><span>🎯</span>Daily</button>
-    <button data-page="leaderboard" onclick="showPage('leaderboard')"><span>🏆</span>Ranks</button>
-    <button data-page="wallet" onclick="showPage('wallet')"><span>💰</span>Wallet</button>
-    <button data-page="profile" onclick="showPage('profile')"><span>👤</span>Profile</button>
-  </div>
-</nav>
-
-<div class="toast" id="toast"></div>
-
 <script>
-let demoCoins = 0;
-let demoClaimed = false;
-let toastTimer;
-
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav button').forEach(b => {
-    b.classList.toggle('active', b.dataset.page === id);
-  });
-  window.scrollTo({top:0, behavior:'smooth'});
+if(window.Telegram&&window.Telegram.WebApp){
+window.Telegram.WebApp.ready();
+window.Telegram.WebApp.expand();
 }
-
-function updateBalance() {
-  document.getElementById('balance').textContent = demoCoins;
-  document.getElementById('walletBalance').textContent = demoCoins;
+const picker=document.getElementById("photo");
+const preview=document.getElementById("preview");
+const image=document.getElementById("image");
+const filename=document.getElementById("filename");
+const button=document.getElementById("remove");
+const status=document.getElementById("status");
+let file=null,previewURL=null;
+picker.addEventListener("change",()=>{
+file=picker.files[0];
+if(!file)return;
+if(!["image/jpeg","image/png","image/webp"].includes(file.type)){
+status.textContent="Please choose a JPG, PNG or WEBP image.";
+file=null;button.disabled=true;return;
 }
-
-function notify(message) {
-  const toast = document.getElementById('toast');
-  toast.textContent = message;
-  toast.style.display = 'block';
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.style.display='none', 2800);
+if(file.size>10*1024*1024){
+status.textContent="Image must be smaller than 10 MB.";
+file=null;button.disabled=true;return;
 }
-
-function demoMessage() {
-  notify('Preview only. Backend integration is required.');
-}
-
-function demoClaim() {
-  if (demoClaimed) {
-    notify('Demo check-in already used in this page session.');
-    return;
-  }
-  demoClaimed = true;
-  demoCoins += 5;
-  updateBalance();
-  document.getElementById('dailyProgress').style.width = '100%';
-  document.getElementById('claimBtn').textContent = 'Demo Check-in Used';
-  document.getElementById('claimBtn').disabled = true;
-  notify('Demo only: 5 temporary coins added.');
-}
-
-updateBalance();
-</script>
-<script>
-  if (window.Telegram && window.Telegram.WebApp) {
-    const tg = window.Telegram.WebApp;
-    tg.ready();
-    tg.expand();
-  }
+if(previewURL)URL.revokeObjectURL(previewURL);
+previewURL=URL.createObjectURL(file);
+image.src=previewURL;
+filename.textContent=file.name;
+preview.style.display="block";
+button.disabled=false;
+status.textContent="Image selected. Backend connection is the next step.";
+});
+button.addEventListener("click",()=>{
+status.textContent="Your image is selected! Actual background removal will work after we connect the secure backend.";
+});
 </script>
 </body>
-          </html>
-
+</html>
