@@ -5,52 +5,138 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#100c25">
-<meta name="description" content="CB8 Remover AI background removal tool">
-<title>CB8 Remover AI</title>
+<meta name="description" content="CB8 Remover AI - AI background removal tool by CB8 EDITZ">
+<title>CB8 Remover AI | CB8 EDITZ</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{color-scheme:dark}
-body{font-family:Arial,sans-serif;color:#fff;min-height:100vh;padding:24px 16px 35px;background:radial-gradient(ellipse at 0 0,#512da8,transparent 42%),radial-gradient(ellipse at 100% 40%,#075985,transparent 40%),#100c25}
+body{
+  font-family:Arial,sans-serif;color:#fff;min-height:100vh;
+  padding:24px 16px 35px;
+  background:radial-gradient(ellipse at 0 0,#512da8,transparent 42%),
+  radial-gradient(ellipse at 100% 40%,#075985,transparent 40%),#100c25
+}
 .app{max-width:460px;margin:auto}
 .header{display:flex;align-items:center;gap:12px;margin-bottom:34px}
-.logo{width:49px;height:49px;display:grid;place-items:center;border-radius:16px;font-size:25px;background:linear-gradient(135deg,#a855f7,#3b82f6);flex-shrink:0}
+.logo{
+  width:49px;height:49px;display:grid;place-items:center;
+  border-radius:16px;font-size:25px;
+  background:linear-gradient(135deg,#a855f7,#3b82f6);flex-shrink:0
+}
 .brand{font-size:19px;font-weight:800}
 .brand span{color:#b99aff}
 .subtitle{font-size:11px;color:#aaa4c9;margin-top:5px}
-.badge{margin-left:auto;padding:8px 10px;border-radius:30px;border:1px solid #a78bfa55;color:#d9ccff;font-size:10px;white-space:nowrap}
+.badge{
+  margin-left:auto;padding:8px 10px;border-radius:30px;
+  border:1px solid #a78bfa55;color:#d9ccff;font-size:10px;white-space:nowrap
+}
 .hero{margin-bottom:25px}
 h1{font-size:35px;line-height:1.18;letter-spacing:-1px}
-h1 span{background:linear-gradient(90deg,#c084fc,#60a5fa);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 span{
+  background:linear-gradient(90deg,#c084fc,#60a5fa);
+  -webkit-background-clip:text;background-clip:text;color:transparent
+}
 .hero p{color:#bdb7d5;font-size:14px;line-height:1.7;margin-top:13px}
-.card{padding:18px;border:1px solid #ffffff20;border-radius:25px;background:linear-gradient(145deg,#ffffff12,#ffffff05);box-shadow:0 20px 55px #00000025}
+.card{
+  padding:18px;border:1px solid #ffffff20;border-radius:25px;
+  background:linear-gradient(145deg,#ffffff12,#ffffff05);
+  box-shadow:0 20px 55px #00000025
+}
 .section-title{font-size:15px;font-weight:700;margin-bottom:15px}
-.upload{min-height:220px;padding:25px 15px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1.5px dashed #9670ff;border-radius:21px;background:#8b5cf618;cursor:pointer}
-.upload-icon{width:70px;height:70px;display:grid;place-items:center;border-radius:22px;background:linear-gradient(135deg,#7546d9,#315cc9);margin-bottom:19px;font-size:28px}
+.upload{
+  min-height:220px;padding:25px 15px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  border:1.5px dashed #9670ff;border-radius:21px;
+  background:#8b5cf618;cursor:pointer
+}
+.upload-icon{
+  width:70px;height:70px;display:grid;place-items:center;
+  border-radius:22px;background:linear-gradient(135deg,#7546d9,#315cc9);
+  margin-bottom:19px;font-size:28px
+}
 .upload-title{font-size:18px;font-weight:700}
 .upload-desc{font-size:13px;color:#bdb5d8;margin-top:9px}
-.browse-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:19px;padding:12px 22px;border-radius:12px;background:linear-gradient(100deg,#8b5cf6,#4778f5);color:white;font-size:14px;font-weight:700}
+.browse-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:19px;padding:12px 22px;border-radius:12px;
+  background:linear-gradient(100deg,#8b5cf6,#4778f5);
+  color:white;font-size:14px;font-weight:700
+}
 .upload-hint{font-size:11px;color:#aaa2c8;margin-top:16px}
 .upload-hint span{color:#a78bfa;padding:0 4px}
 #photo{position:absolute;width:1px;height:1px;opacity:0.01}
 #preview{display:none;margin-top:18px}
-.preview-frame{padding:10px;border:1px solid #ffffff18;border-radius:16px;background:#ffffff08}
-#image{display:block;width:100%;max-height:330px;min-height:80px;object-fit:contain;border-radius:10px;background-color:#eee}
+.preview-frame{
+  padding:10px;border:1px solid #ffffff18;border-radius:16px;background:#ffffff08
+}
+#image{
+  display:block;width:100%;max-height:330px;min-height:80px;
+  object-fit:contain;border-radius:10px;background-color:#eee
+}
 #filename{font-size:12px;color:#c4b5fd;margin-top:10px;overflow-wrap:anywhere}
-.primary-btn{display:block;width:100%;padding:16px;margin-top:18px;border:0;border-radius:14px;background:linear-gradient(100deg,#9333ea,#3b82f6);color:white;font-size:15px;font-weight:800;cursor:pointer}
+.primary-btn{
+  display:block;width:100%;padding:16px;margin-top:18px;border:0;
+  border-radius:14px;background:linear-gradient(100deg,#9333ea,#3b82f6);
+  color:white;font-size:15px;font-weight:800;cursor:pointer
+}
 .primary-btn:disabled{opacity:.5;cursor:not-allowed}
-#download-result{display:none;width:100%;margin-top:14px;padding:15px;border:0;border-radius:12px;background:#16a34a;color:white;font-size:16px;font-weight:bold;cursor:pointer}
-#status{display:none;margin-top:14px;padding:12px;border-radius:12px;background:#ffffff08;color:#d8d0f5;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+#download-result{
+  display:none;width:100%;margin-top:14px;padding:15px;border:0;
+  border-radius:12px;background:#16a34a;color:white;font-size:16px;
+  font-weight:bold;cursor:pointer
+}
+#download-result:disabled{opacity:.6}
+#status{
+  display:none;margin-top:14px;padding:12px;border-radius:12px;
+  background:#ffffff08;color:#d8d0f5;font-size:12px;
+  line-height:1.6;overflow-wrap:anywhere
+}
 .features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-.feature{padding:17px;border-radius:18px;border:1px solid #ffffff15;background:#ffffff08}
+.feature{
+  padding:17px;border-radius:18px;border:1px solid #ffffff15;background:#ffffff08
+}
 .feature-icon{font-size:23px;margin-bottom:12px}
 .feature h3{font-size:13px}
 .feature p{font-size:11px;color:#aaa5c7;line-height:1.6;margin-top:7px}
-footer{text-align:center;margin-top:27px;color:#8983a7;font-size:11px}
+
+/* Social media section */
+.social-section{
+  margin-top:25px;padding:20px 16px;
+  border:1px solid #ffffff20;border-radius:22px;
+  background:linear-gradient(145deg,#ffffff10,#ffffff04);
+  text-align:center
+}
+.social-title{font-size:18px;font-weight:800}
+.social-desc{font-size:12px;color:#aaa4c9;line-height:1.6;margin-top:8px}
+.social-links{
+  display:flex;flex-direction:column;gap:11px;margin-top:18px
+}
+.social-link{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;min-height:48px;padding:13px 15px;
+  border:1px solid #ffffff20;border-radius:13px;
+  color:white;text-decoration:none;font-size:14px;font-weight:700;
+  transition:transform .15s,opacity .15s
+}
+.social-link:active{transform:scale(.98);opacity:.85}
+.social-link.youtube{background:linear-gradient(100deg,#b91c1c,#ef4444)}
+.social-link.tiktok{background:linear-gradient(100deg,#111827,#374151)}
+.social-link.instagram{
+  background:linear-gradient(100deg,#833ab4,#c13584,#f77737)
+}
+.social-icon{font-size:19px}
+footer{
+  text-align:center;margin-top:27px;color:#8983a7;font-size:11px;line-height:1.8
+}
+.footer-brand{color:#c4b5fd;font-weight:800;letter-spacing:1px}
 </style>
 </head>
+
 <body>
 <main class="app">
+
 <header class="header">
   <div class="logo">✂️</div>
   <div>
@@ -80,7 +166,7 @@ footer{text-align:center;margin-top:27px;color:#8983a7;font-size:11px}
 
   <div id="preview">
     <div class="preview-frame">
-      <img id="image" alt="Selected image preview">
+      <img id="image" alt="Image preview">
     </div>
     <div id="filename"></div>
   </div>
@@ -91,112 +177,164 @@ footer{text-align:center;margin-top:27px;color:#8983a7;font-size:11px}
 </section>
 
 <section class="features">
-  <div class="feature"><div class="feature-icon">⚡</div><h3>Simple & Fast</h3><p>A clean and easy image editing workflow.</p></div>
-  <div class="feature"><div class="feature-icon">🪄</div><h3>Transparent PNG</h3><p>Download your processed transparent image.</p></div>
-  <div class="feature"><div class="feature-icon">📱</div><h3>Mobile Friendly</h3><p>Designed for a smooth phone experience.</p></div>
-  <div class="feature"><div class="feature-icon">💜</div><h3>Made by CB8</h3><p>Modern tools for creators.</p></div>
+  <div class="feature">
+    <div class="feature-icon">⚡</div>
+    <h3>Simple & Fast</h3>
+    <p>A clean and easy image editing workflow.</p>
+  </div>
+  <div class="feature">
+    <div class="feature-icon">🪄</div>
+    <h3>Transparent PNG</h3>
+    <p>Download your processed transparent image.</p>
+  </div>
+  <div class="feature">
+    <div class="feature-icon">📱</div>
+    <h3>Mobile Friendly</h3>
+    <p>Designed for a smooth phone experience.</p>
+  </div>
+  <div class="feature">
+    <div class="feature-icon">💜</div>
+    <h3>Made by CB8</h3>
+    <p>Modern tools for creators.</p>
+  </div>
 </section>
 
-<footer>© CB8 Remover AI · Made for creators</footer>
+<!-- Social media links -->
+<section class="social-section">
+  <div class="social-title">Follow CB8 EDITZ</div>
+  <p class="social-desc">Follow me on social media for more edits, videos and updates.</p>
+
+  <div class="social-links">
+    <a class="social-link youtube"
+       href="https://youtube.com/@cb8_editz?si=69zO79JoM6auDJqq"
+       target="_blank" rel="noopener noreferrer">
+      <span class="social-icon">▶</span>
+      <span>YouTube · CB8 EDITZ</span>
+    </a>
+
+    <a class="social-link tiktok"
+       href="https://www.tiktok.com/@cb8_editz?_r=1&amp;_t=ZS-9AvQ34aGqLl"
+       target="_blank" rel="noopener noreferrer">
+      <span class="social-icon">♪</span>
+      <span>TikTok · @cb8_editz</span>
+    </a>
+
+    <a class="social-link instagram"
+       href="https://www.instagram.com/cb8_editz?xtok=MTBqd3QxZ240MGVhaw=="
+       target="_blank" rel="noopener noreferrer">
+      <span class="social-icon">◎</span>
+      <span>Instagram · @cb8_editz</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div>© CB8 Remover AI</div>
+  <div class="footer-brand">MADE BY CB8 EDITZ</div>
+</footer>
+
 </main>
 
 <script>
 (function(){
-  if(window.Telegram && window.Telegram.WebApp){
-    window.Telegram.WebApp.ready();
-    window.Telegram.WebApp.expand();
+  const tg = window.Telegram && window.Telegram.WebApp
+    ? window.Telegram.WebApp : null;
+
+  if(tg){
+    tg.ready();
+    tg.expand();
   }
 
-  const API_URL="https://cb8-remover-backend-1.onrender.com/remove-bg";
-  const picker=document.getElementById("photo");
-  const preview=document.getElementById("preview");
-  const image=document.getElementById("image");
-  const filename=document.getElementById("filename");
-  const button=document.getElementById("remove");
-  const statusBox=document.getElementById("status");
-  const download=document.getElementById("download-result");
+  const API_URL = "https://cb8-remover-backend-1.onrender.com/remove-bg";
+  const picker = document.getElementById("photo");
+  const preview = document.getElementById("preview");
+  const image = document.getElementById("image");
+  const filename = document.getElementById("filename");
+  const button = document.getElementById("remove");
+  const statusBox = document.getElementById("status");
+  const download = document.getElementById("download-result");
 
-  let file=null;
-  let resultBlob=null;
-  let resultURL=null;
-  let busy=false;
-  let selectionId=0;
+  let file = null;
+  let downloadURL = null;
+  let previewURL = null;
+  let busy = false;
+  let selectionId = 0;
 
   function showStatus(message){
-    statusBox.style.display="block";
-    statusBox.textContent=message;
+    statusBox.style.display = "block";
+    statusBox.textContent = message;
   }
 
   function clearResult(){
-    if(resultURL){
-      URL.revokeObjectURL(resultURL);
-      resultURL=null;
-    }
-    resultBlob=null;
-    download.style.display="none";
+    downloadURL = null;
+    previewURL = null;
+    download.style.display = "none";
+    download.disabled = false;
   }
 
   picker.addEventListener("change",function(){
-    const chosen=picker.files && picker.files[0];
-    if(!chosen)return;
+    const chosen = picker.files && picker.files[0];
+    if(!chosen) return;
 
-    const currentId=++selectionId;
+    const currentId = ++selectionId;
     clearResult();
 
-    const allowed=["image/jpeg","image/png","image/webp"];
+    const allowed = ["image/jpeg","image/png","image/webp"];
+
     if(!allowed.includes(chosen.type)){
-      file=null;
-      button.disabled=true;
+      file = null;
+      button.disabled = true;
       showStatus("Please choose a JPG, PNG or WEBP image.");
       return;
     }
 
-    if(chosen.size>10*1024*1024){
-      file=null;
-      button.disabled=true;
+    if(chosen.size > 10 * 1024 * 1024){
+      file = null;
+      button.disabled = true;
       showStatus("Image must be 10 MB or smaller.");
       return;
     }
 
-    file=chosen;
-    button.disabled=true;
+    file = chosen;
+    button.disabled = true;
     showStatus("ছবিটি পড়া হচ্ছে, একটু অপেক্ষা করো...");
 
-    const reader=new FileReader();
+    const reader = new FileReader();
 
-    reader.onload=function(event){
-      if(currentId!==selectionId)return;
+    reader.onload = function(event){
+      if(currentId !== selectionId) return;
 
-      const dataURL=event.target.result;
-      if(typeof dataURL!=="string"){
-        file=null;
-        button.disabled=true;
+      const dataURL = event.target.result;
+
+      if(typeof dataURL !== "string"){
+        file = null;
+        button.disabled = true;
         showStatus("ছবিটি পড়া যায়নি। আবার ছবি বেছে নাও।");
         return;
       }
 
-      image.onload=function(){
-        if(currentId!==selectionId)return;
-        preview.style.display="block";
-        filename.textContent=chosen.name;
-        button.disabled=false;
+      image.onload = function(){
+        if(currentId !== selectionId) return;
+        preview.style.display = "block";
+        filename.textContent = chosen.name;
+        button.disabled = false;
         showStatus("ছবি নির্বাচন হয়েছে। এখন Remove Background চাপো।");
       };
 
-      image.onerror=function(){
-        if(currentId!==selectionId)return;
-        file=null;
-        button.disabled=true;
-        showStatus("ছবির প্রিভিউ খোলা যায়নি। JPG বা PNG ছবি দিয়ে চেষ্টা করো।");
+      image.onerror = function(){
+        if(currentId !== selectionId) return;
+        file = null;
+        button.disabled = true;
+        showStatus("ছবির প্রিভিউ খোলা যায়নি। অন্য ছবি দিয়ে চেষ্টা করো।");
       };
 
-      image.src=dataURL;
+      image.src = dataURL;
     };
 
-    reader.onerror=function(){
-      if(currentId!==selectionId)return;
-      file=null;
-      button.disabled=true;
+    reader.onerror = function(){
+      if(currentId !== selectionId) return;
+      file = null;
+      button.disabled = true;
       showStatus("ফোন থেকে ছবিটি পড়া যায়নি। আবার ছবি বেছে নাও।");
     };
 
@@ -204,99 +342,129 @@ footer{text-align:center;margin-top:27px;color:#8983a7;font-size:11px}
   });
 
   button.addEventListener("click",async function(){
-    if(busy)return;
+    if(busy) return;
 
     if(!file){
       showStatus("আগে Choose Image চাপ দিয়ে একটি ছবি বেছে নাও।");
       return;
     }
 
-    const fileToProcess=file;
+    const fileToProcess = file;
     clearResult();
-    busy=true;
-    button.disabled=true;
-    button.textContent="⏳ Processing...";
+
+    busy = true;
+    button.disabled = true;
+    button.textContent = "⏳ Processing...";
     showStatus("Background removal চলছে। অপেক্ষা করো...");
 
     try{
-      const formData=new FormData();
+      const formData = new FormData();
       formData.append("image",fileToProcess,fileToProcess.name);
 
-      const response=await fetch(API_URL,{
+      const response = await fetch(API_URL,{
         method:"POST",
         body:formData
       });
 
+      let data;
+
+      try{
+        data = await response.json();
+      }catch(e){
+        throw new Error("সার্ভার থেকে সঠিক উত্তর আসেনি। Backend deploy পরীক্ষা করো।");
+      }
+
       if(!response.ok){
-        let details="";
-        try{
-          const data=await response.json();
-          details=data.error||data.message||"";
-        }catch(e){}
-        throw new Error(details||("Server returned error "+response.status));
+        throw new Error(data.error || data.message || ("Server error " + response.status));
       }
 
-      const blob=await response.blob();
-
-      if(!blob.type.startsWith("image/")){
-        throw new Error("Server did not return an image. Check backend settings.");
+      if(!data.success || !data.download_url || !data.preview_url){
+        throw new Error(data.error || "ডাউনলোড লিংক তৈরি হয়নি।");
       }
 
-      resultBlob=blob;
-      resultURL=URL.createObjectURL(blob);
+      downloadURL = data.download_url;
+      previewURL = data.preview_url;
 
-      const reader=new FileReader();
-      reader.onload=function(event){
-        image.onload=function(){
-          filename.textContent="Background removed successfully!";
-          preview.style.display="block";
-          download.style.display="block";
-          showStatus("ছবি তৈরি হয়েছে! সবুজ বাটনে চাপ দিয়ে PNG ডাউনলোড করো।");
-        };
-        image.onerror=function(){
-          showStatus("ছবি তৈরি হয়েছে, কিন্তু প্রিভিউ দেখানো যায়নি। ডাউনলোড চেষ্টা করো।");
-          download.style.display="block";
-        };
-        image.src=event.target.result;
+      image.onload = function(){
+        preview.style.display = "block";
+        filename.textContent = "Background removed successfully!";
+        download.style.display = "block";
+        download.disabled = false;
+        showStatus("ছবি তৈরি হয়েছে! সবুজ বাটনে চাপ দিয়ে PNG ডাউনলোড করো।");
       };
-      reader.onerror=function(){
-        image.src=resultURL;
-        filename.textContent="Background removed successfully!";
-        download.style.display="block";
-        showStatus("ছবি তৈরি হয়েছে। সবুজ বাটনে চাপ দিয়ে ডাউনলোড করো।");
+
+      image.onerror = function(){
+        preview.style.display = "block";
+        filename.textContent = "Background removed successfully!";
+        download.style.display = "block";
+        download.disabled = false;
+        showStatus("ছবি তৈরি হয়েছে, কিন্তু প্রিভিউ দেখা যাচ্ছে না। ডাউনলোড চেষ্টা করো।");
       };
-      reader.readAsDataURL(blob);
+
+      image.src = previewURL;
 
     }catch(error){
-      showStatus("Background removal failed: "+error.message+". সার্ভার চালু আছে কি না পরীক্ষা করো।");
+      clearResult();
+      showStatus("Background removal failed: " + error.message);
     }finally{
-      busy=false;
-      button.disabled=!file;
-      button.textContent="✨ Remove Background";
+      busy = false;
+      button.disabled = !file;
+      button.textContent = "✨ Remove Background";
     }
   });
 
   download.addEventListener("click",function(){
-    if(!resultBlob){
+    if(!downloadURL){
       showStatus("আগে একটি ছবি আপলোড করে Remove Background করো।");
       return;
     }
 
-    const reader=new FileReader();
-    reader.onload=function(event){
-      const link=document.createElement("a");
-      link.href=event.target.result;
-      link.download="cb8-remover.png";
-      link.style.display="none";
-      document.body.appendChild(link);
+    const fileName = "cb8-remover.png";
+
+    if(tg && typeof tg.downloadFile === "function"){
+      try{
+        download.disabled = true;
+        showStatus("Telegram-এর ডাউনলোড ব্যবস্থা চালু হচ্ছে...");
+
+        tg.downloadFile({
+          url: downloadURL,
+          file_name: fileName
+        },function(status){
+          download.disabled = false;
+
+          if(status === "downloading"){
+            showStatus("ডাউনলোড শুরু হয়েছে। ফোনের Downloads ফোল্ডারে ফাইলটি দেখো।");
+          }else if(status === "cancelled"){
+            showStatus("ডাউনলোড বাতিল করা হয়েছে। আবার চেষ্টা করতে পারো।");
+          }else{
+            showStatus("ডাউনলোডের অবস্থা নিশ্চিত করা যায়নি। আবার চেষ্টা করো।");
+          }
+        });
+
+        return;
+      }catch(error){
+        download.disabled = false;
+        showStatus("Telegram-এর ডাউনলোড চালু হয়নি। সরাসরি লিংক খুলে চেষ্টা করছি...");
+      }
+    }
+
+    const link = document.createElement("a");
+    link.href = downloadURL;
+    link.download = fileName;
+    link.target = "_blank";
+    link.rel = "noopener";
+    document.body.appendChild(link);
+
+    try{
       link.click();
+      showStatus("ডাউনলোড লিংক খোলা হয়েছে। ডাউনলোড শুরু না হলে খোলা পেজে ফাইলটি সেভ করো।");
+    }catch(error){
+      showStatus("ডাউনলোড শুরু করা যায়নি। আবার চেষ্টা করো।");
+    }
+
+    setTimeout(function(){
       link.remove();
-      showStatus("PNG ডাউনলোডের চেষ্টা করা হয়েছে। কাজ না করলে Chrome-এ Mini App খুলে চেষ্টা করো।");
-    };
-    reader.onerror=function(){
-      showStatus("ডাউনলোডের জন্য ছবিটি প্রস্তুত করা যায়নি। আবার চেষ্টা করো।");
-    };
-    reader.readAsDataURL(resultBlob);
+    },2000);
   });
 })();
 </script>
